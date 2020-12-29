@@ -1,3 +1,24 @@
+
+// an array can store many more arrays 
+
+
+var arr3 = [ [1,2],[2,3],[3,7,5,8,9,8,2]];
+// 1,2 -->  0, 0    0,1 
+//2,3 ---> 1,0      1,1
+//3,4  --> 2,0    2,1
+
+
+
+
+//console.log(arr3[0]);
+
+
+
+console.log(arr3[2][4]);
+
+
+
+
 const Engine = Matter.Engine;
 const World= Matter.World;
 const Bodies = Matter.Bodies;
@@ -9,6 +30,14 @@ var backgroundImg,platform;
 var bird, slingshot;
 
 
+var gamestate = "onsling";
+
+
+
+
+
+
+
 function preload() {
     backgroundImg = loadImage("sprites/bg.png");
 }
@@ -17,7 +46,7 @@ function setup(){
     var canvas = createCanvas(1200,400);
     engine = Engine.create();
     world = engine.world;
-
+    
 
     ground = new Ground(600,height,1200,20);
     platform = new Ground(150, 305, 300, 170);
@@ -69,16 +98,27 @@ function draw(){
 }
 
 function mouseDragged(){
-    Matter.Body.setPosition(bird.body, {x: mouseX , y: mouseY});
+
+    if(gamestate !==" launched ")
+    {
+        Matter.Body.setPosition(bird.body, {x: mouseX , y: mouseY});
+
+    }
+    
+
 }
 
 
 function mouseReleased(){
+
     slingshot.fly();
+    gamestate= "launched";
 }
 
 function keyPressed(){
+
     if(keyCode === 32){
-        slingshot.attach(bird.body);
+       // slingshot.attach(bird.body);
     }
+
 }
